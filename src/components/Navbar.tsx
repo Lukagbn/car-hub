@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import profileImg from "../assets/icons/profile.svg";
 import searchImg from "../assets/icons/search.svg";
 
@@ -7,6 +7,7 @@ function Navbar() {
 
   return (
     <header className="bg-white">
+      <h1 className="hidden">carRent</h1>
       <div className="flex items-center justify-between">
         <div
           className="cursor-pointer relative h-5 w-4"
@@ -32,7 +33,7 @@ function Navbar() {
       </div>
       <div className="relative mt-4">
         <img
-          className="absolute left-3 top-1/2 -translate-y-1/2"
+          className="absolute left-3 top-1/2 -translate-y-1/2 cursor-pointer"
           src={searchImg}
           width={19}
           height={19}
