@@ -1,3 +1,5 @@
+import { Link } from "react-router";
+
 export interface CarProps {
   id: number;
   make: string;
@@ -17,14 +19,31 @@ export interface CarProps {
 export default function Card({ car }: { car: CarProps }) {
   return (
     <div className="rounded-[10px] bg-white w-full p-4 h-60 flex flex-col">
-      <h3 className="mt-2 font-medium">
-        {car.make} {car.model}
-      </h3>
+      <div className="flex justify-between items-center">
+        <h3 className="mt-2 font-medium">
+          {car.make} {car.model}
+        </h3>
+        <svg
+          width="15"
+          height="14"
+          viewBox="0 0 15 14"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M7.83 12.5567C7.60333 12.6367 7.23 12.6367 7.00333 12.5567C5.07 11.8967 0.75 9.14333 0.75 4.47667C0.75 2.41667 2.41 0.75 4.45667 0.75C5.67 0.75 6.74333 1.33667 7.41667 2.24333C8.09 1.33667 9.17 0.75 10.3767 0.75C12.4233 0.75 14.0833 2.41667 14.0833 4.47667C14.0833 9.14333 9.76333 11.8967 7.83 12.5567Z"
+            stroke="#90A3BF"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+      </div>
       <div className="flex justify-between items-center mt-5">
         <img
           src={car.thumbnail_img}
           alt={`${car.make} ${car.model}`}
-          className="w-45 h-15"
+          className="w-40 h-15"
         />
         <div className="flex flex-col">
           <div className="flex gap-1.5">
@@ -94,12 +113,14 @@ export default function Card({ car }: { car: CarProps }) {
       </div>
       <div className="flex justify-between items-center mt-auto">
         <p className="text-sm text-[#1A202C] font-bold text-[16px]">
-          ${car.price}.00/
+          ${car.price.toFixed(2)}/
           <span className="text-[12px] text-[#90A3BF]">day</span>
         </p>
-        <button className="rounded-[10px] bg-blue-700 text-white h-9 w-25 text-[12px]">
-          Rent Now
-        </button>
+        <Link to={`/cars/${car.id}`}>
+          <button className="rounded-[10px] bg-blue-700 text-white h-9 w-25 text-[12px]">
+            Rent Now
+          </button>
+        </Link>
       </div>
     </div>
   );

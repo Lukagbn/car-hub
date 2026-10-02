@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import Banner from "../components/Banner";
 import type { CarProps } from "../components/Card";
-import Card from "../components/Card";
 import CardList from "../components/CardList";
 
 function Home() {
