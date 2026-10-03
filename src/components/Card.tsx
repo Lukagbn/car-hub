@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link } from "react-router";
 
 export interface CarProps {
@@ -17,6 +18,7 @@ export interface CarProps {
 }
 
 export default function Card({ car }: { car: CarProps }) {
+  const [hover, setHover] = useState<boolean>(false);
   return (
     <div className="rounded-[10px] bg-white w-full p-4 h-60 flex flex-col">
       <div className="flex justify-between items-center">
@@ -117,7 +119,11 @@ export default function Card({ car }: { car: CarProps }) {
           <span className="text-[12px] text-[#90A3BF]">day</span>
         </p>
         <Link to={`/cars/${car.id}`}>
-          <button className="rounded-[10px] bg-blue-700 text-white h-9 w-25 text-[12px]">
+          <button
+            className={`rounded-[10px] ${hover ? "bg-blue-500" : "bg-blue-700"}  text-white h-9 w-25 text-[12px] cursor-pointer transition-all duration-200`}
+            onMouseEnter={() => setHover(true)}
+            onMouseLeave={() => setHover(false)}
+          >
             Rent Now
           </button>
         </Link>

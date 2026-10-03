@@ -24,7 +24,7 @@ function Home() {
     <>
       <Banner />
       <CardList car={carData} />
-      <button className="rounded-[10px] bg-blue-500 text-white h-9 w-25 text-[12px] flex mx-auto my-4 items-center justify-center">
+      <button className="rounded-[10px] bg-blue-500 text-white h-9 w-25 text-[12px] flex mx-auto my-4 items-center justify-center hover:bg-blue-700 transition-all duration-200 cursor-pointer">
         See More
       </button>
     </>

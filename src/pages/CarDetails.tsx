@@ -6,6 +6,7 @@ import StarRating from "../components/StarRating";
 function Details() {
   const { id } = useParams();
   const [carDetails, setCarDetails] = useState<CarProps>();
+  const [mainImg, setMainImg] = useState<string>();
 
   async function fetchCar() {
     try {
@@ -28,20 +29,18 @@ function Details() {
     <section>
       <img
         className="mb-4 rounded-[10px] w-full h-50"
-        src={carDetails.images[0]}
+        src={mainImg ?? carDetails.images[0]}
         alt="car image"
       />
       {carDetails.images.length !== 1 && (
         <div className="flex justify-between mb-4">
           {carDetails.images.map((img, index) => {
-            if (index === 0) {
-              return;
-            }
             return (
               <img
                 className="w-[30%] h-20 rounded-[10px]"
                 key={index}
                 src={img}
+                onClick={() => setMainImg(img)}
               />
             );
           })}
