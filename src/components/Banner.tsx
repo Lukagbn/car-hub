@@ -9,7 +9,7 @@ function Banner() {
       <p className="text-white text-[12px] my-4">
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut, omnis.
       </p>
-      <button className="bg-blue-700 text-white rounded-sm w-32 h-12 hover:bg-blue-600 transition-all duration-200 cursor-pointer cursor-pointer">
+      <button className="bg-blue-700 text-white rounded-sm w-32 h-12 hover:bg-blue-600 transition-all duration-200 cursor-pointer">
         Rent A Car
       </button>
       <img

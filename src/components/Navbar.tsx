@@ -1,17 +1,48 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import profileImg from "../assets/icons/profile.svg";
 import searchImg from "../assets/icons/search.svg";
 import { Link } from "react-router";
+import { useAppDispatch, useAppSelector } from "../store/hooks";
+import { updateUser } from "../store/slices/userSlice";
+import LogIn from "./Modals/LogIn";
+import Register from "./Modals/Register";
+import Profile from "./Modals/Profile";
 
 function Navbar() {
   const [burger, setBurger] = useState<boolean>(false);
   const [active, setActive] = useState<boolean>(false);
+  const [overlay, setOverlay] = useState<boolean>(false);
+  const [modal, setModal] = useState<string>();
+
+  const dispatch = useAppDispatch();
+  const user = useAppSelector((state) => state.user);
+  const loggedIn: boolean = user.isLoggedIn;
 
   const NAVIGATION = [
     { label: "Home", path: "/" },
     { label: "Favorites", path: "/favorites" },
     { label: "Categories", path: "/categories" },
   ];
+
+  const test = {
+    name: "luka",
+    surname: "asdasd",
+    age: 22,
+    phone: "saasdasd",
+    email: "asdasd",
+    isLoggedIn: true,
+  };
+
+  useEffect(() => {
+    if (overlay) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [overlay]);
 
   return (
     <header className="bg-white">
@@ -23,6 +54,7 @@ function Navbar() {
           onClick={() => {
             setBurger(!burger);
             setActive(!active);
+            dispatch(updateUser(test));
           }}
         >
           <span
@@ -45,7 +77,7 @@ function Navbar() {
           <ul className="flex flex-col gap-2.5">
             {NAVIGATION.map((item) => {
               return (
-                <li className="text-white hover:underline">
+                <li className="text-white hover:underline" key={item.label}>
                   <Link
                     to={item.path}
                     onClick={() => {
@@ -67,6 +99,10 @@ function Navbar() {
           height={28}
           style={{ marginLeft: active ? "auto" : "0px" }}
           className="rounded-[90px]"
+          onClick={() => {
+            setOverlay(true);
+            setModal("login");
+          }}
         />
       </div>
       <div className="relative mt-4">
@@ -83,6 +119,23 @@ function Navbar() {
           placeholder="Search car here"
         />
       </div>
+      {overlay && (
+        <div
+          className="fixed left-0 top-0 w-full h-full bg-[rgba(0,0,0,0.5)] z-10"
+          onClick={() => setOverlay(false)}
+        >
+          <div
+            className="fixed p-4 bg-white top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-[10px] w-62.5"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {!loggedIn && modal === "login" && (
+              <LogIn setModal={() => setModal("signup")} />
+            )}
+            {!loggedIn && modal === "signup" && <Register />}
+            {loggedIn && <Profile />}
+          </div>
+        </div>
+      )}
     </header>
   );
 }

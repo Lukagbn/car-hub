@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router";
+import { useAppDispatch } from "../store/hooks";
+import { addToFavorites } from "../store/slices/carSlice";
 
 export interface CarProps {
   id: number;
@@ -18,11 +20,16 @@ export interface CarProps {
 }
 
 export default function Card({ car }: { car: CarProps }) {
+  const dispatch = useAppDispatch();
+
   const [hover, setHover] = useState<boolean>(false);
   return (
     <div className="rounded-[10px] bg-white w-full p-4 h-60 flex flex-col">
       <div className="flex justify-between items-center">
-        <h3 className="mt-2 font-medium">
+        <h3
+          className="mt-2 font-medium text-[#1A202C]"
+          onClick={() => dispatch(addToFavorites(car))}
+        >
           {car.make} {car.model}
         </h3>
         <svg
