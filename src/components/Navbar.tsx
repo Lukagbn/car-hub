@@ -2,8 +2,6 @@ import { useEffect, useState } from "react";
 import profileImg from "../assets/icons/profile.svg";
 import searchImg from "../assets/icons/search.svg";
 import { Link } from "react-router";
-import { useAppDispatch, useAppSelector } from "../store/hooks";
-import { updateUser } from "../store/slices/userSlice";
 import LogIn from "./Modals/LogIn";
 import Register from "./Modals/Register";
 import Profile from "./Modals/Profile";
@@ -14,24 +12,14 @@ function Navbar() {
   const [overlay, setOverlay] = useState<boolean>(false);
   const [modal, setModal] = useState<string>();
 
-  const dispatch = useAppDispatch();
-  const user = useAppSelector((state) => state.user);
-  const loggedIn: boolean = user.isLoggedIn;
+  const token = localStorage.getItem("token");
+  const loggedIn: boolean = !!token;
 
   const NAVIGATION = [
     { label: "Home", path: "/" },
     { label: "Favorites", path: "/favorites" },
     { label: "Categories", path: "/categories" },
   ];
-
-  const test = {
-    name: "luka",
-    surname: "asdasd",
-    age: 22,
-    phone: "saasdasd",
-    email: "asdasd",
-    isLoggedIn: true,
-  };
 
   useEffect(() => {
     if (overlay) {
@@ -45,7 +33,7 @@ function Navbar() {
   }, [overlay]);
 
   return (
-    <header className="bg-white">
+    <header className="bg-white sticky top-0 z-1000">
       <h1 className="hidden">carRent</h1>
       <div className="flex items-center justify-between">
         <div
@@ -54,7 +42,6 @@ function Navbar() {
           onClick={() => {
             setBurger(!burger);
             setActive(!active);
-            dispatch(updateUser(test));
           }}
         >
           <span
@@ -98,7 +85,7 @@ function Navbar() {
           width={28}
           height={28}
           style={{ marginLeft: active ? "auto" : "0px" }}
-          className="rounded-[90px]"
+          className="rounded-[90px] cursor-pointer"
           onClick={() => {
             setOverlay(true);
             setModal("login");
@@ -125,13 +112,15 @@ function Navbar() {
           onClick={() => setOverlay(false)}
         >
           <div
-            className="fixed p-4 bg-white top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-[10px] w-62.5"
+            className="fixed p-4 bg-white top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-[10px] w-75"
             onClick={(e) => e.stopPropagation()}
           >
             {!loggedIn && modal === "login" && (
               <LogIn setModal={() => setModal("signup")} />
             )}
-            {!loggedIn && modal === "signup" && <Register />}
+            {!loggedIn && modal === "signup" && (
+              <Register setModal={() => setModal("login")} />
+            )}
             {loggedIn && <Profile />}
           </div>
         </div>

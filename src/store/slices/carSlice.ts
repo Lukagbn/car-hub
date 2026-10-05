@@ -23,10 +23,12 @@ const favSlice = createSlice({
   initialState,
   reducers: {
     addToFavorites: (state, action: PayloadAction<CarProps>) => {
-      const exists = state.favCars.find((car) => car.id === action.payload.id);
+      const exists = state.favCars.find(
+        (car) => car._id === action.payload._id,
+      );
       if (exists) {
         state.favCars = state.favCars.filter(
-          (car) => car.id !== action.payload.id,
+          (car) => car._id !== action.payload._id,
         );
       } else {
         state.favCars.push({ ...action.payload });

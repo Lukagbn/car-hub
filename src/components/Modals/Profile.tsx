@@ -1,20 +1,54 @@
+import { useEffect, useState } from "react";
 import userImg from "../../assets/icons/profile.svg";
-import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { deleteUserData } from "../../store/slices/userSlice";
+
+interface UserProps {
+  name: string;
+  surname: string;
+  nickname: string;
+  email: string;
+  phone: string;
+  gender: boolean | string;
+}
 
 function Profile() {
-  const dispatch = useAppDispatch();
-  const user = useAppSelector((state) => state.user);
+  const [userData, setUserData] = useState<UserProps | null>(null);
+  async function fetchUser() {
+    const token =
+      localStorage.getItem("token") || sessionStorage.getItem("token");
+
+    if (token) {
+      const res = await fetch("http://localhost:4000/auth/me", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (res.status === 401) {
+        console.log(res);
+      } else {
+        const result = await res.json();
+        setUserData(result.user);
+      }
+    }
+  }
+  useEffect(() => {
+    fetchUser();
+  }, [userData]);
+
+  if (!userData) {
+    return <div>loading...</div>;
+  }
 
   return (
     <div className="flex flex-col items-center justify-center gap-3">
       <h2 className="font-bold text-[18px] text-[#1A202C]">
-        Welcome {user.name}
+        Welcome {userData.name}
       </h2>
       <img src={userImg} alt="profile" className="w-25 h-25 rounded-25" />
       <ul className="w-full">
-        {Object.entries(user).map(([key, value]) => {
-          if (key === "isLoggedIn") return;
+        {Object.entries(userData).map(([key, value]) => {
+          if (key === "_id" || key === "createdAt" || key === "__v") return;
           return (
             <li
               key={key}
@@ -22,7 +56,11 @@ function Profile() {
             >
               {key}:{" "}
               <span className="text-[#90A3BF] font-normal">
-                {String(value)}
+                {key === "gender" && value === true
+                  ? value === true
+                    ? "male"
+                    : "female"
+                  : String(value)}
               </span>
             </li>
           );
@@ -32,7 +70,8 @@ function Profile() {
         className="flex items-center justify-center mx-auto bg-blue-700 text-white rounded-sm w-32 h-12 hover:bg-blue-600 transition-all duration-200 cursor-pointer"
         type="submit"
         onClick={() => {
-          dispatch(deleteUserData());
+          localStorage.removeItem("token");
+          window.location.reload();
         }}
       >
         Log Out
