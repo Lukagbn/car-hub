@@ -1,4 +1,4 @@
-import Heart from "./SvgIcons/Heart";
+import Heart from "../SvgIcons/Heart";
 
 function CardLoader() {
   return (

@@ -1,6 +1,6 @@
 import CardLoader from "./CardLoader";
-import StarRating from "./StarRating";
-import Heart from "./SvgIcons/Heart";
+import StarRating from "../StarRating";
+import Heart from "../SvgIcons/Heart";
 
 function CarDetailsLoader() {
   return (
