@@ -17,7 +17,7 @@ function Profile() {
       localStorage.getItem("token") || sessionStorage.getItem("token");
 
     if (token) {
-      const res = await fetch("http://localhost:4000/auth/me", {
+      const res = await fetch("https://rentacar-uq9f.onrender.com/auth/me", {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,

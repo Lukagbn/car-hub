@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router";
 import { useAppDispatch } from "../store/hooks";
 import { addToFavorites } from "../store/slices/carSlice";
-import Hearth from "./SvgIcons/Heart";
+import Heart from "./SvgIcons/Heart";
 import Transmission from "./SvgIcons/Transmission";
 import Fuel from "./SvgIcons/Fuel";
 
@@ -28,12 +28,12 @@ export default function Card({ car }: { car: CarProps }) {
   const discountPrice = car.price - (car.price * car.discount) / 100;
   const [hover, setHover] = useState<boolean>(false);
   return (
-    <div className="rounded-[10px] bg-white w-full max-w-77.5 p-4 h-70 flex flex-col">
+    <div className="rounded-[10px] bg-white w-full max-w-77.5 p-3.5 h-70 flex flex-col shrink-0 shadow-md">
       <div className="flex justify-between items-center">
         <h3 className="mt-2 font-medium text-[#1A202C]">
           {car.make} {car.model}
         </h3>
-        <Hearth onClick={() => dispatch(addToFavorites(car))} car={car} />
+        <Heart onClick={() => dispatch(addToFavorites(car))} car={car} />
       </div>
       <img
         src={car.thumbnail_img}
@@ -42,17 +42,17 @@ export default function Card({ car }: { car: CarProps }) {
       />
       <div className="flex flex-col mt-auto">
         <div className="flex justify-between">
-          <div className="flex gap-1.5">
+          <div className="flex gap-1">
             <Transmission />
-            <p className="text-[#90A3BF]">{car.car_type}</p>
+            <p className="text-[#90A3BF] text-[12px]">{car.car_type}</p>
           </div>
-          <div className="flex gap-1.5">
+          <div className="flex gap-1">
             <Fuel />
-            <p className="text-[#90A3BF]">{car.fuel}L</p>
+            <p className="text-[#90A3BF] text-[12px]">{car.fuel}L</p>
           </div>
-          <div className="flex gap-1.5">
+          <div className="flex gap-1">
             <Transmission />
-            <p className="text-[#90A3BF]">{car.transmission}</p>
+            <p className="text-[#90A3BF] text-[12px]">{car.transmission}</p>
           </div>
         </div>
         <div className="flex justify-between items-center mt-2.5">

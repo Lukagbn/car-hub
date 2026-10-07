@@ -2,7 +2,7 @@ import porscheImg from "../assets/images/porsche.webp";
 
 function Banner() {
   return (
-    <section className="bg-blue-400 rounded-[10px] p-5 h-80 relative">
+    <section className="bg-blue-400 rounded-[10px] p-5 h-80 relative lg:max-w-310 lg:mx-auto">
       <h2 className="text-white font-semibold tracking-[1px] text-[20px]">
         The Best Platform To Rent A Car
       </h2>

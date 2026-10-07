@@ -10,7 +10,7 @@ interface HeartProps {
   loading?: boolean;
 }
 
-function Hearth({ onClick, car, width, height, loading }: HeartProps) {
+function Heart({ onClick, car, width, height, loading }: HeartProps) {
   const [hover, setHover] = useState<boolean>(false);
   const [clicked, setClicked] = useState<boolean>(false);
 
@@ -49,4 +49,4 @@ function Hearth({ onClick, car, width, height, loading }: HeartProps) {
   );
 }
 
-export default Hearth;
+export default Heart;

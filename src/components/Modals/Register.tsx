@@ -58,14 +58,18 @@ function Register({ setModal }: RegisterProps) {
 
   async function handleSignUp(data: RegisterData) {
     try {
-      const res = await fetch("http://localhost:4000/auth/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      });
+      const res = await fetch(
+        "https://rentacar-uq9f.onrender.com/auth/register",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        },
+      );
       if (!res.ok) {
         console.log("error registering user!");
       }
+      window.location.reload();
     } catch (error) {
       console.log("error", error);
     }
@@ -159,9 +163,6 @@ function Register({ setModal }: RegisterProps) {
         <button
           className="flex items-center justify-center mx-auto bg-blue-700 text-white rounded-sm w-32 h-12 hover:bg-blue-600 transition-all duration-200 cursor-pointer"
           type="submit"
-          onClick={() => {
-            window.location.reload();
-          }}
         >
           Sign Up
         </button>

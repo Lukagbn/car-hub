@@ -1,11 +1,11 @@
-import Hearth from "./SvgIcons/Heart";
+import Heart from "./SvgIcons/Heart";
 
-function Loading() {
+function CardLoader() {
   return (
-    <div className="rounded-[10px] bg-white w-full max-w-77.5 p-4 h-70 flex flex-col animate-pulse">
+    <div className="rounded-[10px] bg-white w-full max-w-77.5 p-4 h-70 flex flex-col animate-pulse shrink-0">
       <div className="flex justify-between">
         <div className="h-4 bg-[#1A202C] rounded w-2/4 mb-4"></div>
-        <Hearth loading={true} />
+        <Heart loading={true} />
       </div>
       <div className="h-1/2 bg-gray-200 rounded w-3/4 mx-auto mb-4"></div>
       <div className="flex justify-between mb-4">
@@ -24,4 +24,4 @@ function Loading() {
   );
 }
 
-export default Loading;
+export default CardLoader;
