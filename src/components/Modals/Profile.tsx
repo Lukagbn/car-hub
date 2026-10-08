@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import userImg from "../../assets/icons/profile.svg";
+import ProfileLoader from "../Skeletons/ProfileLoader";
 
 interface UserProps {
   name: string;
@@ -37,11 +38,11 @@ function Profile() {
   }, [userData]);
 
   if (!userData) {
-    return <div>loading...</div>;
+    return <ProfileLoader />;
   }
 
   return (
-    <div className="flex flex-col items-center justify-center gap-3">
+    <div className="flex flex-col items-center justify-center gap-3 h-92">
       <h2 className="font-bold text-[18px] text-[#1A202C]">
         Welcome {userData.name}
       </h2>

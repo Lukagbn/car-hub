@@ -5,9 +5,9 @@ import StarRating from "../components/StarRating";
 import { useAppDispatch } from "../store/hooks";
 import { addToFavorites } from "../store/slices/carSlice";
 import Heart from "../components/SvgIcons/Heart";
-import CarDetailsLoader from "../components/CarDetailsLoader";
+import CarDetailsLoader from "../components/Skeletons/CarDetailsLoader";
 import Card from "../components/Card";
-import CardLoader from "../components/CardLoader";
+import CardLoader from "../components/Skeletons/CarDetailsLoader";
 
 interface CarDetails {
   carDetails: CarProps;
@@ -50,7 +50,6 @@ function Details() {
       );
       const response: Reviews = await res.json();
       setReviews(response.reviews);
-      console.log(reviews);
     } catch (error) {
       console.log("error", error);
     }
@@ -59,9 +58,7 @@ function Details() {
     try {
       const res = await fetch("https://rentacar-uq9f.onrender.com/cars");
       const response: ApiResponse = await res.json();
-      if (!res.ok) {
-        console.log(res);
-      }
+
       const filtered = response.carData.filter(
         (carData) => carData._id !== _id,
       );
@@ -95,7 +92,7 @@ function Details() {
               {carDetails.images.map((img, index) => {
                 return (
                   <img
-                    className="w-[30%] h-auto rounded-[10px] lg:max-w-37.5 lg:h-25 object-cover"
+                    className="w-[30%] h-auto rounded-[10px] lg:max-w-37.5 lg:h-25 object-cover cursor-pointer"
                     key={index}
                     src={img}
                     onClick={() => setMainImg(img)}
@@ -180,7 +177,7 @@ function Details() {
       {recommended ? (
         <div className="flex overflow-x-scroll gap-3 mt-4 lg:max-w-310 lg:mx-auto h-75.25">
           {recommended.map((item) => {
-            return <Card car={item} />;
+            return <Card car={item} key={item._id} />;
           })}
         </div>
       ) : (
