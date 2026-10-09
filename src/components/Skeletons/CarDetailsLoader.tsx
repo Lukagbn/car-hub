@@ -6,12 +6,12 @@ function CarDetailsLoader() {
   return (
     <section className="animate-pulse w-full">
       <div className="lg:flex lg:gap-10 lg:max-w-310 lg:mx-auto lg:mb-4 lg:h-112.5">
-        <div className="lg:max-w-125 lg:w-full lg:flex lg:flex-col sm:max-w-112.5 sm:w-full sm:mx-auto">
-          <div className="w-full bg-gray-200 h-52 mb-4 rounded-[10px] md:h-112.5 lg:h-full"></div>
+        <div className="lg:max-w-112.2 mx-auto lg:w-full lg:flex lg:flex-col sm:max-w-112.5 sm:w-full sm:mx-auto">
+          <div className="w-full bg-gray-200 h-75 mb-4 rounded-[10px] md:h-112.5 lg:h-full"></div>
           <div className="flex w-full justify-between mb-4 lg:mb-0">
-            <div className="w-[30%] bg-gray-200 min-h-15 h-full rounded-[10px] md:h-37.5 lg:max-w-37.5 lg:h-25"></div>
-            <div className="w-[30%] bg-gray-200 min-h-15 h-full rounded-[10px] md:h-37.5 lg:max-w-37.5 lg:h-25"></div>
-            <div className="w-[30%] bg-gray-200 min-h-15 h-full rounded-[10px] md:h-37.5 lg:max-w-37.5 lg:h-25"></div>
+            <div className="w-[30%] bg-gray-200 min-h-20 h-full rounded-[10px] md:h-37.5 lg:max-w-37.5 lg:h-25"></div>
+            <div className="w-[30%] bg-gray-200 min-h-20 h-full rounded-[10px] md:h-37.5 lg:max-w-37.5 lg:h-25"></div>
+            <div className="w-[30%] bg-gray-200 min-h-20 h-full rounded-[10px] md:h-37.5 lg:max-w-37.5 lg:h-25"></div>
           </div>
         </div>
         <div className="bg-white rounded-[10px] p-4 flex flex-col gap-2 lg:w-full">

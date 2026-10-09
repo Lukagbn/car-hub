@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router";
+import { Link, useParams } from "react-router";
 import type { CarProps } from "../components/Card";
 import StarRating from "../components/StarRating";
 import { useAppDispatch } from "../store/hooks";
@@ -34,7 +34,7 @@ function Details() {
   const [mainImg, setMainImg] = useState<string>();
   const dispatch = useAppDispatch();
 
-  async function fetchCar() {
+  async function fetchCarData() {
     try {
       const res = await fetch(`https://rentacar-uq9f.onrender.com/cars/${_id}`);
       const response: CarDetails = await res.json();
@@ -68,7 +68,7 @@ function Details() {
     }
   }
   useEffect(() => {
-    fetchCar();
+    fetchCarData();
     fetchRecommended();
     fetchReviews();
   }, [_id]);
@@ -83,7 +83,7 @@ function Details() {
       <div className="lg:flex lg:gap-10 lg:max-w-310 lg:mx-auto lg:mb-4 lg:h-112.5">
         <div className="max-w-112.5 mx-auto w-full lg:max-w-110 lg:flex lg:flex-col lg:h-full">
           <img
-            className="mb-4 rounded-[10px] w-full h-auto lg:max-h-83.5 lg:h-full lg:object-cover object-cover"
+            className="mb-4 rounded-[10px] w-full h-auto max-h-75 lg:max-h-83.5 lg:h-full lg:object-cover object-cover"
             src={mainImg ?? carDetails.images[0]}
             alt="car image"
           />
@@ -92,7 +92,7 @@ function Details() {
               {carDetails.images.map((img, index) => {
                 return (
                   <img
-                    className="w-[30%] h-auto rounded-[10px] lg:max-w-37.5 lg:h-25 object-cover cursor-pointer"
+                    className="w-[30%] max-h-18 rounded-[10px] lg:max-w-37.5 lg:h-25 lg:max-h-none object-cover cursor-pointer"
                     key={index}
                     src={img}
                     onClick={() => setMainImg(img)}
@@ -153,16 +153,18 @@ function Details() {
                 </p>
               )}
             </div>
-            <button className="rounded-[10px] bg-blue-700 text-white h-full w-35 text-[17px]">
-              Rent Now
-            </button>
+            <Link to={`/checkout/${_id}`}>
+              <button className="rounded-[10px] bg-blue-700 text-white h-full w-35 text-[17px]">
+                Rent Now
+              </button>
+            </Link>
           </div>
         </div>
       </div>
       <div className="bg-white rounded-[10px] p-4 flex flex-col gap-2 mt-4 lg:max-w-310 lg:m-auto">
         <h4 className="font-bold text-[#90A3BF]">Reviews</h4>
         {reviews.map((review) => (
-          <div>
+          <div key={review.userId}>
             <div className="flex justify-between items-center">
               <h5 className="font-bold text-[#1A202C]">{review.nickname}</h5>
               <StarRating rating={review.rating} />
