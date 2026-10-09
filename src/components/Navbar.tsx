@@ -2,15 +2,13 @@ import { useEffect, useState } from "react";
 import profileImg from "../assets/icons/profile.svg";
 import searchImg from "../assets/icons/search.svg";
 import { Link } from "react-router";
-import LogIn from "./Modals/LogIn";
-import Register from "./Modals/Register";
-import Profile from "./Modals/Profile";
+import Modals from "./Modals/Modals";
 
 function Navbar() {
   const [burger, setBurger] = useState<boolean>(false);
   const [active, setActive] = useState<boolean>(false);
   const [overlay, setOverlay] = useState<boolean>(false);
-  const [modal, setModal] = useState<string>();
+  const [modal, setModal] = useState<string>("none");
 
   const token = localStorage.getItem("token");
   const loggedIn: boolean = !!token;
@@ -121,25 +119,13 @@ function Navbar() {
             placeholder="Search car here"
           />
         </div>
-        {overlay && (
-          <div
-            className="fixed left-0 top-0 w-full h-full bg-[rgba(0,0,0,0.5)] z-10"
-            onClick={() => setOverlay(false)}
-          >
-            <div
-              className="fixed p-4 bg-white top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-[10px] w-75"
-              onClick={(e) => e.stopPropagation()}
-            >
-              {!loggedIn && modal === "login" && (
-                <LogIn setModal={() => setModal("signup")} />
-              )}
-              {!loggedIn && modal === "signup" && (
-                <Register setModal={() => setModal("login")} />
-              )}
-              {loggedIn && <Profile />}
-            </div>
-          </div>
-        )}
+        <Modals
+          loggedIn={loggedIn}
+          modal={modal}
+          overlay={overlay}
+          onClose={() => setOverlay(false)}
+          onModalChange={setModal}
+        />
       </div>
     </header>
   );
