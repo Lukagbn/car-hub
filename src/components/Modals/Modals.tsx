@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import LogIn from "./LogIn";
 import Profile from "./Profile";
 import Register from "./Register";
@@ -19,9 +20,20 @@ function Modals({
 }: ModalProps) {
   if (!overlay) return null;
 
+  useEffect(() => {
+    if (overlay) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [overlay]);
+
   return (
     <div
-      className="fixed left-0 top-0 w-full h-full bg-[rgba(0,0,0,0.5)] z-10"
+      className="fixed left-0 top-0 w-full h-full bg-[rgba(0,0,0,0.5)] z-1000"
       onClick={onClose}
     >
       <div

@@ -10,13 +10,13 @@ function Navbar() {
   const [overlay, setOverlay] = useState<boolean>(false);
   const [modal, setModal] = useState<string>("none");
 
-  const token = localStorage.getItem("token");
-  const loggedIn: boolean = !!token;
+  const loggedIn = Boolean(localStorage.getItem("token"));
 
   const NAVIGATION = [
     { label: "Home", path: "/" },
     { label: "Favorites", path: "/favorites" },
     { label: "Categories", path: "/categories" },
+    { label: "Contact", path: "/contact" },
   ];
 
   useEffect(() => {

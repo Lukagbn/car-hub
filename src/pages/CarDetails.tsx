@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import type { CarProps } from "../components/Card";
 import StarRating from "../components/StarRating";
 import { useAppDispatch } from "../store/hooks";
@@ -8,8 +8,9 @@ import Heart from "../components/SvgIcons/Heart";
 import CarDetailsLoader from "../components/Skeletons/CarDetailsLoader";
 import Card from "../components/Card";
 import CardLoader from "../components/Skeletons/CarDetailsLoader";
+import Modals from "../components/Modals/Modals";
 
-interface CarDetails {
+export interface CarDetails {
   carDetails: CarProps;
 }
 interface ApiResponse {
@@ -25,20 +26,24 @@ interface Review {
 interface Reviews {
   reviews: Review[];
 }
-
 function Details() {
   const { _id } = useParams();
   const [recommended, setRecommended] = useState<CarProps[]>([]);
-  const [carDetails, setCarDetails] = useState<CarProps>();
+  const [carData, setCarData] = useState<CarProps>();
   const [reviews, setReviews] = useState<Review[]>([]);
   const [mainImg, setMainImg] = useState<string>();
+  const [overlay, setOverlay] = useState<boolean>(false);
+  const [modal, setModal] = useState<string>("login");
+  const loggedIn = Boolean(localStorage.getItem("token"));
+  const navigate = useNavigate();
+
   const dispatch = useAppDispatch();
 
   async function fetchCarData() {
     try {
       const res = await fetch(`https://rentacar-uq9f.onrender.com/cars/${_id}`);
       const response: CarDetails = await res.json();
-      setCarDetails(response.carDetails);
+      setCarData(response.carDetails);
     } catch (error) {
       console.log("error", error);
     }
@@ -67,16 +72,35 @@ function Details() {
       console.log("error", error);
     }
   }
+  function handleRentClick() {
+    if (loggedIn) {
+      navigate(`/checkout/${_id}`);
+    } else {
+      setModal("login");
+      setOverlay(true);
+    }
+  }
+  useEffect(() => {
+    if (overlay) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [overlay]);
+
   useEffect(() => {
     fetchCarData();
     fetchRecommended();
     fetchReviews();
   }, [_id]);
 
-  if (!carDetails) return <CarDetailsLoader />;
+  if (!carData) return <CarDetailsLoader />;
 
   const discountPrice =
-    carDetails.price - (carDetails.price * carDetails.discount) / 100;
+    carData.price - (carData.price * carData.discount) / 100;
 
   return (
     <section>
@@ -84,12 +108,12 @@ function Details() {
         <div className="max-w-112.5 mx-auto w-full lg:max-w-110 lg:flex lg:flex-col lg:h-full">
           <img
             className="mb-4 rounded-[10px] w-full h-auto max-h-75 lg:max-h-83.5 lg:h-full lg:object-cover object-cover"
-            src={mainImg ?? carDetails.images[0]}
+            src={mainImg ?? carData.images[0]}
             alt="car image"
           />
-          {carDetails.images.length !== 1 && (
+          {carData.images.length !== 1 && (
             <div className="flex justify-between mb-4 gap-2 lg:flex-row lg:mb-0">
-              {carDetails.images.map((img, index) => {
+              {carData.images.map((img, index) => {
                 return (
                   <img
                     className="w-[30%] max-h-18 rounded-[10px] lg:max-w-37.5 lg:h-25 lg:max-h-none object-cover cursor-pointer"
@@ -105,41 +129,40 @@ function Details() {
         <div className="bg-white rounded-[10px] p-4 flex flex-col gap-2 lg:w-full lg:h-112.5">
           <div className="flex items-center justify-between">
             <h2 className="text-[#1A202C] text-[20px] font-bold">
-              {carDetails.make} {carDetails.model}
+              {carData.make} {carData.model}
             </h2>
             <Heart
-              onClick={() => dispatch(addToFavorites(carDetails))}
-              car={carDetails}
+              onClick={() => dispatch(addToFavorites(carData))}
+              car={carData}
               width={22}
               height={20}
             />
           </div>
           <div className="flex gap-4 items-center">
-            <StarRating rating={carDetails.rating} />
+            <StarRating rating={carData.rating} />
             <p className="text-[#90A3BF] text-[12px]">
               reviews( {reviews.length ?? 0} )
             </p>
           </div>
           <p className="text-[#1A202C] flex justify-between font-bold">
-            Car Make: <span className="text-[#90A3BF]">{carDetails.make}</span>
+            Car Make: <span className="text-[#90A3BF]">{carData.make}</span>
           </p>
           <p className="text-[#1A202C] flex justify-between font-bold">
-            Car Type:{" "}
-            <span className="text-[#90A3BF]">{carDetails.car_type}</span>
+            Car Type: <span className="text-[#90A3BF]">{carData.car_type}</span>
           </p>
           <p className="text-[#1A202C] flex justify-between font-bold">
-            Fuel: <span className="text-[#90A3BF]">{carDetails.fuel}L</span>
+            Fuel: <span className="text-[#90A3BF]">{carData.fuel}L</span>
           </p>
           <p className="text-[#1A202C] flex justify-between font-bold">
             Fuel Type:{" "}
-            <span className="text-[#90A3BF]">{carDetails.fuel_type}</span>
+            <span className="text-[#90A3BF]">{carData.fuel_type}</span>
           </p>
           <p className="text-[#1A202C] flex justify-between font-bold">
             Transmission:{" "}
-            <span className="text-[#90A3BF]">{carDetails.transmission}</span>
+            <span className="text-[#90A3BF]">{carData.transmission}</span>
           </p>
           <p className="text-[#1A202C] flex justify-between font-bold">
-            Year: <span className="text-[#90A3BF]">{carDetails.year}</span>
+            Year: <span className="text-[#90A3BF]">{carData.year}</span>
           </p>
           <div className="flex justify-between h-15 mt-5 lg:mt-auto">
             <div className="flex flex-col justify-between">
@@ -149,15 +172,16 @@ function Details() {
               </p>
               {discountPrice !== 0 && (
                 <p className="line-through text-[#90A3BF]">
-                  ${carDetails.price.toFixed(2)}
+                  ${carData.price.toFixed(2)}
                 </p>
               )}
             </div>
-            <Link to={`/checkout/${_id}`}>
-              <button className="rounded-[10px] bg-blue-700 text-white h-full w-35 text-[17px]">
-                Rent Now
-              </button>
-            </Link>
+            <button
+              className="rounded-[10px] bg-blue-700 text-white h-full w-35 text-[17px] cursor-pointer hover:bg-blue-500 transition-all duration-200"
+              onClick={handleRentClick}
+            >
+              Rent Now
+            </button>
           </div>
         </div>
       </div>
@@ -185,6 +209,14 @@ function Details() {
       ) : (
         <CardLoader />
       )}
+      <Modals
+        modal={modal}
+        overlay={overlay}
+        loggedIn={loggedIn}
+        onClose={() => setOverlay(false)}
+        onModalChange={setModal}
+      />
+      ;
     </section>
   );
 }

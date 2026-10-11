@@ -28,7 +28,7 @@ function Home() {
 
   useEffect(() => {
     fetchCars();
-  }, []);
+  }, [carData]);
 
   return (
     <>
