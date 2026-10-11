@@ -3,12 +3,17 @@ import profileImg from "../assets/icons/profile.svg";
 import searchImg from "../assets/icons/search.svg";
 import { Link } from "react-router";
 import Modals from "./Modals/Modals";
+import type { CarProps } from "./Card";
+import type { ApiResponse } from "../pages/Home";
+import StarRating from "./StarRating";
 
 function Navbar() {
   const [burger, setBurger] = useState<boolean>(false);
   const [active, setActive] = useState<boolean>(false);
   const [overlay, setOverlay] = useState<boolean>(false);
   const [modal, setModal] = useState<string>("none");
+  const [params, setParams] = useState<string>("");
+  const [searchData, setSearchData] = useState<CarProps[]>();
 
   const loggedIn = Boolean(localStorage.getItem("token"));
 
@@ -18,6 +23,29 @@ function Navbar() {
     { label: "Categories", path: "/categories" },
     { label: "Contact", path: "/contact" },
   ];
+
+  async function fetchCars() {
+    if (!params.trim()) {
+      setSearchData(undefined);
+      return;
+    }
+    try {
+      const res = await fetch(
+        `https://rentacar-uq9f.onrender.com/cars?search=${encodeURIComponent(params)}`,
+      );
+      const response: ApiResponse = await res.json();
+      setSearchData(response.carData);
+    } catch (error) {
+      console.log("error:", error);
+    }
+  }
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      fetchCars();
+    }, 400);
+    return () => clearTimeout(timer);
+  }, [params]);
 
   useEffect(() => {
     if (overlay) {
@@ -39,15 +67,11 @@ function Navbar() {
             <Link to={"/"}>CarRent</Link>
           </h2>
           <ul className="flex gap-2 max-sm:hidden">
-            <li className="text-[#1A202C] select-none cursor-pointer hover:text-[#90A3BF] transition-all duration-300">
-              <Link to={"/"}>Home</Link>
-            </li>
-            <li className="text-[#1A202C] select-none cursor-pointer hover:text-[#90A3BF] transition-all duration-300">
-              <Link to={"/"}>Categories</Link>
-            </li>
-            <li className="text-[#1A202C] select-none cursor-pointer hover:text-[#90A3BF] transition-all duration-300">
-              <Link to={"/favorites"}>Favorites</Link>
-            </li>
+            {NAVIGATION.map((item) => (
+              <li className="text-[#1A202C] select-none cursor-pointer hover:text-[#90A3BF] transition-all duration-300">
+                <Link to={`${item.path}`}>{item.label}</Link>
+              </li>
+            ))}
           </ul>
           <div
             className="cursor-pointer relative h-5 w-4 sm:hidden"
@@ -117,7 +141,34 @@ function Navbar() {
             className="border border-[#C3D4E9] rounded-[10px] h-12 w-full p-3 pl-10"
             type="search"
             placeholder="Search car here"
+            onChange={(e) => setParams(e.target.value)}
           />
+          {searchData && (
+            <div className="absolute flex flex-col gap-3 bg-[#f6f7f9] p-3 w-full max-h-60 top-[110%] shadow-2xl rounded-[10px] overflow-y-auto">
+              {searchData?.map((car) => (
+                <Link
+                  key={car._id}
+                  to={`cars/${car._id}`}
+                  onClick={() => setSearchData(undefined)}
+                >
+                  <div className="flex gap-3 pb-2">
+                    <img
+                      className="h-20 w-35 object-cover rounded-[10px]"
+                      src={car.images[0]}
+                      alt="car image"
+                    />
+                    <div className="flex flex-col">
+                      <h3 className="font-medium text-[#1A202C]">
+                        {car.make} {car.model}
+                      </h3>
+                      <StarRating rating={car.rating} />
+                    </div>
+                  </div>
+                  <hr className="border-gray-200" />
+                </Link>
+              ))}
+            </div>
+          )}
         </div>
         <Modals
           loggedIn={loggedIn}

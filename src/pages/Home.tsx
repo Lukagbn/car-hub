@@ -3,7 +3,7 @@ import Banner from "../components/Banner";
 import type { CarProps } from "../components/Card";
 import CardList from "../components/CardList";
 
-interface ApiResponse {
+export interface ApiResponse {
   carData: CarProps[];
 }
 
