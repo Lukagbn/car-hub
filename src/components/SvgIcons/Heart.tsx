@@ -28,7 +28,7 @@ function Heart({ onClick, car, width, height, loading }: HeartProps) {
   }, [favoriteCars]);
   return (
     <svg
-      className={`${loading ? "cursor-default" : "cursor-pointer"} transition-all duration-300`}
+      className={`${loading ? "cursor-default" : "cursor-pointer"} transition-all duration-300 ${hover || clicked ? "scale-115" : ""}`}
       width={`${width ? width : 16}`}
       height={`${height ? height : 14}`}
       viewBox="0 0 15 14"

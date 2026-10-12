@@ -5,6 +5,8 @@ import CarDetails from "./pages/CarDetails";
 import Favorites from "./pages/Favorites";
 import Checkout from "./pages/Checkout";
 import ProtectedRoute from "./components/ProtectedRoute";
+import Contact from "./pages/Contact";
+import Categories from "./pages/Categories";
 
 export default function App() {
   return (
@@ -13,6 +15,8 @@ export default function App() {
         <Route path="/" element={<Home />} />
         <Route path="/cars/:_id" element={<CarDetails />} />
         <Route path="/favorites" element={<Favorites />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/categories" element={<Categories />} />
         <Route element={<ProtectedRoute />}>
           <Route path="/checkout/:_id" element={<Checkout />} />
         </Route>
