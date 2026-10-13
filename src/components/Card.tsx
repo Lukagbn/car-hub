@@ -3,6 +3,7 @@ import { Link } from "react-router";
 import { useAppDispatch } from "../store/hooks";
 import { addToFavorites } from "../store/slices/carSlice";
 import Heart from "./SvgIcons/Heart";
+import CarType from "./SvgIcons/CarType";
 import Transmission from "./SvgIcons/Transmission";
 import Fuel from "./SvgIcons/Fuel";
 
@@ -43,7 +44,7 @@ export default function Card({ car }: { car: CarProps }) {
       <div className="flex flex-col mt-auto">
         <div className="flex justify-between">
           <div className="flex gap-1">
-            <Transmission />
+            <CarType />
             <p className="text-[#90A3BF] text-[12px]">{car.car_type}</p>
           </div>
           <div className="flex gap-1">

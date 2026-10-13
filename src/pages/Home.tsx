@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Banner from "../components/Banner";
 import type { CarProps } from "../components/Card";
 import CardList from "../components/CardList";
+import { Link } from "react-router";
 
 export interface ApiResponse {
   carData: CarProps[];
@@ -44,9 +45,12 @@ function Home() {
     <>
       <Banner />
       <CardList car={carData} title="Recommended Cars" loading={loading} />
-      <button className="rounded-[10px] bg-blue-500 text-white h-9 w-25 text-[12px] flex mx-auto my-4 items-center justify-center hover:bg-blue-700 transition-all duration-200 cursor-pointer">
+      <Link
+        to={"/categories"}
+        className="rounded-[10px] bg-blue-500 text-white h-9 w-25 text-[12px] flex mx-auto my-4 items-center justify-center hover:bg-blue-700 transition-all duration-200 cursor-pointer"
+      >
         See More
-      </button>
+      </Link>
     </>
   );
 }

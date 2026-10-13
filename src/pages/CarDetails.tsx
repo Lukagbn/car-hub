@@ -170,7 +170,7 @@ function Details() {
               {carData.images.map((img, index) => {
                 return (
                   <img
-                    className="w-[30%] max-h-18 rounded-[10px] lg:max-w-37.5 lg:h-25 lg:max-h-none object-cover cursor-pointer"
+                    className={`${mainImg === img ? "scale-[90%]" : ""} w-[30%] max-h-18 rounded-[10px] lg:max-w-37.5 lg:h-25 lg:max-h-none object-cover cursor-pointer`}
                     key={index}
                     src={img}
                     onClick={() => setMainImg(img)}
