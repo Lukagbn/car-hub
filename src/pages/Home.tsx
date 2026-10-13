@@ -5,6 +5,16 @@ import CardList from "../components/CardList";
 
 export interface ApiResponse {
   carData: CarProps[];
+  pagination: MetaData;
+}
+
+export interface MetaData {
+  currentPage: number;
+  hasNextPage: boolean;
+  hasPrevPage: boolean;
+  limit: number;
+  totalCars: number;
+  totalPages: number;
 }
 
 function Home() {

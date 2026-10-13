@@ -68,7 +68,10 @@ function Navbar() {
           </h2>
           <ul className="flex gap-2 max-sm:hidden">
             {NAVIGATION.map((item) => (
-              <li className="text-[#1A202C] select-none cursor-pointer hover:text-[#90A3BF] transition-all duration-300">
+              <li
+                key={item.label}
+                className="text-[#1A202C] select-none cursor-pointer hover:text-[#90A3BF] transition-all duration-300"
+              >
                 <Link to={`${item.path}`}>{item.label}</Link>
               </li>
             ))}
