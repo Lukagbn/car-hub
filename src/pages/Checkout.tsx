@@ -3,6 +3,7 @@ import { useParams } from "react-router";
 import type { CarDetails } from "./CarDetails";
 import type { CarProps } from "../components/Card";
 import StarRating from "../components/StarRating";
+import CheckoutLoader from "../components/Skeletons/CheckoutLoader";
 
 function Checkout() {
   const { _id } = useParams();
@@ -38,7 +39,7 @@ function Checkout() {
   }, [_id]);
 
   if (!carData) {
-    return <div>Loading...</div>;
+    return <CheckoutLoader />;
   }
   const discountPrice =
     carData.price - (carData.price * carData.discount) / 100;
