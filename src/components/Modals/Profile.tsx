@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import userImg from "../../assets/icons/profile.svg";
 import ProfileLoader from "../Skeletons/ProfileLoader";
 
-interface UserProps {
+export interface UserProps {
+  _id: string;
   name: string;
   surname: string;
   nickname: string;

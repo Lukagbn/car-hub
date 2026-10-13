@@ -9,6 +9,7 @@ import CarDetailsLoader from "../components/Skeletons/CarDetailsLoader";
 import Card from "../components/Card";
 import CardLoader from "../components/Skeletons/CarDetailsLoader";
 import Modals from "../components/Modals/Modals";
+import type { UserProps } from "../components/Modals/Profile";
 
 export interface CarDetails {
   carDetails: CarProps;
@@ -34,6 +35,9 @@ function Details() {
   const [mainImg, setMainImg] = useState<string>();
   const [overlay, setOverlay] = useState<boolean>(false);
   const [modal, setModal] = useState<string>("login");
+  const [comment, setComment] = useState<string>("");
+  const [rating, setRating] = useState<string>("");
+  const [userData, setUserData] = useState<UserProps | null>(null);
   const loggedIn = Boolean(localStorage.getItem("token"));
   const navigate = useNavigate();
 
@@ -72,6 +76,55 @@ function Details() {
       console.log("error", error);
     }
   }
+  async function fetchUser() {
+    const token =
+      localStorage.getItem("token") || sessionStorage.getItem("token");
+
+    if (token) {
+      const res = await fetch("https://rentacar-uq9f.onrender.com/auth/me", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (res.status === 401) {
+        console.log(res);
+      } else {
+        const result = await res.json();
+        setUserData(result.user);
+      }
+    }
+  }
+  async function postComment(data: {
+    rating: number;
+    comment: string;
+    userId: string;
+    carId: string;
+    nickname: string;
+  }) {
+    try {
+      const res = await fetch("https://rentacar-uq9f.onrender.com/review/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (!res.ok) {
+        console.error("Failed to post review:", res.status);
+        return;
+      }
+
+      await fetchReviews();
+
+      setComment("");
+      setRating("");
+    } catch (error) {
+      console.error("Error posting review:", error);
+    }
+  }
   function handleRentClick() {
     if (loggedIn) {
       navigate(`/checkout/${_id}`);
@@ -95,6 +148,7 @@ function Details() {
     fetchCarData();
     fetchRecommended();
     fetchReviews();
+    fetchUser();
   }, [_id]);
 
   if (!carData) return <CarDetailsLoader />;
@@ -187,6 +241,66 @@ function Details() {
       </div>
       <div className="bg-white rounded-[10px] p-4 flex flex-col gap-2 mt-4 lg:max-w-310 lg:m-auto">
         <h4 className="font-bold text-[#90A3BF]">Reviews</h4>
+        {loggedIn ? (
+          <div className="grid grid-cols-2 md:flex">
+            <div className="flex flex-col gap-2 pt-3 max-w-70">
+              <label
+                className="text-sm font-medium text-gray-700"
+                htmlFor="comment"
+              >
+                Write A Comment
+              </label>
+              <textarea
+                id="comment"
+                className="w-full h-11 p-3 text-sm text-gray-800 bg-gray-50 border border-gray-200 rounded-lg outline-none placeholder:text-gray-400 focus:border-green-500 focus:ring-2 focus:ring-red-100 transition max-h-50"
+                maxLength={400}
+                onChange={(e) => setComment(e.target.value)}
+              />
+            </div>
+            <div className="flex flex-col gap-2 pt-3 max-w-15 ml-auto md:ml-10">
+              <label
+                className="text-sm font-medium text-gray-700"
+                htmlFor="rate"
+              >
+                Rate Car
+              </label>
+              <input
+                type="text"
+                inputMode="numeric"
+                id="rate"
+                value={rating}
+                maxLength={1}
+                onChange={(e) => {
+                  const value = e.target.value;
+
+                  if (/^[1-5]?$/.test(value)) {
+                    setRating(value);
+                  }
+                }}
+                className="w-full h-11 px-3 text-sm text-gray-800 bg-gray-50 border border-gray-200 rounded-lg outline-none"
+              />
+            </div>
+            <button
+              disabled={!rating || !comment.trim()}
+              onClick={() => {
+                if (!userData || !_id || !rating || !comment.trim()) {
+                  return;
+                }
+
+                postComment({
+                  rating: Number(rating),
+                  comment: comment.trim(),
+                  userId: userData._id,
+                  carId: _id,
+                  nickname: userData.nickname,
+                });
+              }}
+              className="bg-blue-700 px-4 py-2 rounded-[10px] text-white mt-3 col-span-2 cursor-pointer hover:bg-blue-500 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed md:ml-auto md:max-w-75 md:w-full md:h-10 md:self-end"
+            >
+              Post
+            </button>
+          </div>
+        ) : null}
         {reviews.map((review) => (
           <div key={review.userId}>
             <div className="flex justify-between items-center">
@@ -216,7 +330,6 @@ function Details() {
         onClose={() => setOverlay(false)}
         onModalChange={setModal}
       />
-      ;
     </section>
   );
 }
