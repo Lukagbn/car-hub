@@ -25,7 +25,7 @@ function Footer() {
           </h5>
         </div>
         <p className="text-[#1A202C] text-[14px] text-center font-semibold">
-          ©2026 Brand. All rights reserved
+          ©2026 CarRent. All rights reserved
         </p>
       </div>
     </footer>
