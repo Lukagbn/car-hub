@@ -48,6 +48,8 @@ const schema = yup.object().shape({
 });
 
 function Register({ setModal }: RegisterProps) {
+  const API_URL = import.meta.env.VITE_API_URL;
+
   const {
     register,
     handleSubmit,
@@ -58,14 +60,11 @@ function Register({ setModal }: RegisterProps) {
 
   async function handleSignUp(data: RegisterData) {
     try {
-      const res = await fetch(
-        "https://rentacar-uq9f.onrender.com/auth/register",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(data),
-        },
-      );
+      const res = await fetch(`${API_URL}/auth/register`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
       if (!res.ok) {
         console.log("error registering user!");
       }

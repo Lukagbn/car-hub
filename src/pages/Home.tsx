@@ -21,10 +21,11 @@ export interface MetaData {
 function Home() {
   const [carData, setCarData] = useState<CarProps[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
+  const API_URL = import.meta.env.VITE_API_URL;
 
   async function fetchCars() {
     try {
-      const res = await fetch("https://rentacar-uq9f.onrender.com/cars");
+      const res = await fetch(`${API_URL}/cars`);
       const response: ApiResponse = await res.json();
       if (!res.ok) {
         console.log(res);

@@ -22,10 +22,11 @@ function Checkout() {
     "test5",
     "test6",
   ];
+  const API_URL = import.meta.env.VITE_API_URL;
 
   async function fetchCarData() {
     try {
-      const res = await fetch(`https://rentacar-uq9f.onrender.com/cars/${_id}`);
+      const res = await fetch(`${API_URL}/cars/${_id}`);
       const response: CarDetails = await res.json();
       setCarData(response.carDetails);
     } catch (error) {

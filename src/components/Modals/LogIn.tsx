@@ -17,6 +17,7 @@ const schema = yup.object({
 
 function LogIn({ setModal }: LogInProps) {
   const [error, setError] = useState<string>("");
+  const API_URL = import.meta.env.VITE_API_URL;
   const {
     register,
     handleSubmit,
@@ -27,7 +28,7 @@ function LogIn({ setModal }: LogInProps) {
 
   async function handleLogIn(data: { email: string; password: string }) {
     try {
-      const res = await fetch("https://rentacar-uq9f.onrender.com/auth", {
+      const res = await fetch(`${API_URL}/auth`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),

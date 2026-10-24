@@ -43,9 +43,11 @@ function Details() {
 
   const dispatch = useAppDispatch();
 
+  const API_URL = import.meta.env.VITE_API_URL;
+
   async function fetchCarData() {
     try {
-      const res = await fetch(`https://rentacar-uq9f.onrender.com/cars/${_id}`);
+      const res = await fetch(`${API_URL}/cars/${_id}`);
       const response: CarDetails = await res.json();
       setCarData(response.carDetails);
     } catch (error) {
@@ -54,9 +56,7 @@ function Details() {
   }
   async function fetchReviews() {
     try {
-      const res = await fetch(
-        `https://rentacar-uq9f.onrender.com/review/${_id}`,
-      );
+      const res = await fetch(`${API_URL}/review/${_id}`);
       const response: Reviews = await res.json();
       setReviews(response.reviews);
     } catch (error) {
@@ -65,7 +65,7 @@ function Details() {
   }
   async function fetchRecommended() {
     try {
-      const res = await fetch("https://rentacar-uq9f.onrender.com/cars");
+      const res = await fetch(`${API_URL}/cars`);
       const response: ApiResponse = await res.json();
 
       const filtered = response.carData.filter(
@@ -81,7 +81,7 @@ function Details() {
       localStorage.getItem("token") || sessionStorage.getItem("token");
 
     if (token) {
-      const res = await fetch("https://rentacar-uq9f.onrender.com/auth/me", {
+      const res = await fetch(`${API_URL}/auth/me`, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -104,7 +104,7 @@ function Details() {
     nickname: string;
   }) {
     try {
-      const res = await fetch("https://rentacar-uq9f.onrender.com/review/", {
+      const res = await fetch(`${API_URL}/review/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -295,7 +295,7 @@ function Details() {
                   nickname: userData.nickname,
                 });
               }}
-              className="bg-blue-700 px-4 py-2 rounded-[10px] text-white mt-3 col-span-2 cursor-pointer hover:bg-blue-500 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed md:ml-auto md:max-w-75 md:w-full md:h-10 md:self-end"
+              className={`bg-blue-700 px-4 py-2 rounded-[10px] text-white mt-3 col-span-2 cursor-pointer ${!rating || !comment.trim() ? "" : "hover:bg-blue-500"}  transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed md:ml-auto md:max-w-75 md:w-full md:h-10 md:self-end`}
             >
               Post
             </button>

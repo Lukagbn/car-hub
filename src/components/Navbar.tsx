@@ -14,15 +14,14 @@ function Navbar() {
   const [modal, setModal] = useState<string>("none");
   const [params, setParams] = useState<string>("");
   const [searchData, setSearchData] = useState<CarProps[]>();
-
   const loggedIn = Boolean(localStorage.getItem("token"));
-
   const NAVIGATION = [
     { label: "Home", path: "/" },
     { label: "Favorites", path: "/favorites" },
     { label: "Categories", path: "/categories" },
     { label: "Contact", path: "/contact" },
   ];
+  const API_URL = import.meta.env.VITE_API_URL;
 
   async function fetchCars() {
     if (!params.trim()) {
@@ -31,7 +30,7 @@ function Navbar() {
     }
     try {
       const res = await fetch(
-        `https://rentacar-uq9f.onrender.com/cars?search=${encodeURIComponent(params)}`,
+        `${API_URL}/cars?search=${encodeURIComponent(params)}`,
       );
       const response: ApiResponse = await res.json();
       setSearchData(response.carData);
@@ -61,10 +60,10 @@ function Navbar() {
   return (
     <header className="bg-white sticky top-0 z-1000 p-6">
       <div className="lg:max-w-310 lg:m-auto">
-        <h1 className="hidden">carRent</h1>
+        <h1 className="hidden">CarHub</h1>
         <div className="flex items-center justify-between">
           <h2 className="text-blue-600 text-[20px] font-bold max-sm:hidden select-none cursor-pointer">
-            <Link to={"/"}>CarRent</Link>
+            <Link to={"/"}>CarHub</Link>
           </h2>
           <ul className="flex gap-2 max-sm:hidden">
             {NAVIGATION.map((item) => (

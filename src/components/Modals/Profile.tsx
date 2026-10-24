@@ -14,12 +14,14 @@ export interface UserProps {
 
 function Profile() {
   const [userData, setUserData] = useState<UserProps | null>(null);
+  const API_URL = import.meta.env.VITE_API_URL;
+
   async function fetchUser() {
     const token =
       localStorage.getItem("token") || sessionStorage.getItem("token");
 
     if (token) {
-      const res = await fetch("https://rentacar-uq9f.onrender.com/auth/me", {
+      const res = await fetch(`${API_URL}/auth/me`, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,

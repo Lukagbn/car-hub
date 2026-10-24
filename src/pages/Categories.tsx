@@ -31,10 +31,12 @@ function Categories() {
   const TRANSMISSION = ["Automatic", "CVT", "Manual"];
   const FUEL_TYPE = ["Electric", "Hybrid", "Diesel", "Petrol"];
 
+  const API_URL = import.meta.env.VITE_API_URL;
+
   async function fetchCars() {
     try {
       const res = await fetch(
-        `https://rentacar-uq9f.onrender.com/cars?make=${make}&fuel_type=${fuelType}&car_type=${carType}&transmission=${transmission}&minPrice=${minPrice}&maxPrice=${maxPrice}&page=${page}`,
+        `${API_URL}/cars?make=${make}&fuel_type=${fuelType}&car_type=${carType}&transmission=${transmission}&minPrice=${minPrice}&maxPrice=${maxPrice}&page=${page}`,
       );
       const response: ApiResponse = await res.json();
       setMetaData(response.pagination);
