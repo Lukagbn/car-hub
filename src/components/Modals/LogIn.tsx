@@ -27,7 +27,7 @@ function LogIn({ setModal }: LogInProps) {
 
   async function handleLogIn(data: { email: string; password: string }) {
     try {
-      const res = await fetch("https://rentacar-uq9f.onrender.com/auh", {
+      const res = await fetch("https://rentacar-uq9f.onrender.com/auth", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),

@@ -278,6 +278,10 @@ function Checkout() {
           Confirmation
         </h2>
         <hr className="border-gray-200" />
+        <div>
+          <input type="checkbox" id="terms" />
+          <label htmlFor="terms">agree to terms</label>
+        </div>
       </section>
     </section>
   );

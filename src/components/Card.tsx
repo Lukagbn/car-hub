@@ -28,16 +28,16 @@ export default function Card({ car }: { car: CarProps }) {
   const dispatch = useAppDispatch();
   const discountPrice = car.price - (car.price * car.discount) / 100;
   const [hover, setHover] = useState<boolean>(false);
-  const [index, setIndex] = useState<number>(0);
+  const [imgIndex, setImgIndex] = useState<number>(0);
 
   function nextImg() {
-    if (car.images.length - 1 <= index) return setIndex(0);
-    return setIndex((prev) => prev + 1);
+    if (car.images.length - 1 <= imgIndex) return setImgIndex(0);
+    return setImgIndex((prev) => prev + 1);
   }
 
   function prevImg() {
-    if (index <= 0) return setIndex(car.images.length - 1);
-    return setIndex((prev) => prev - 1);
+    if (imgIndex <= 0) return setImgIndex(car.images.length - 1);
+    return setImgIndex((prev) => prev - 1);
   }
 
   return (
@@ -67,8 +67,20 @@ export default function Card({ car }: { car: CarProps }) {
             </button>
           </div>
         )}
+        {car.images.length !== 1 && (
+          <div className="absolute flex gap-1 bottom-4 left-1/2 -translate-x-1/2 z-2">
+            {Array.from({ length: car.images.length }).map((_, index) => {
+              return (
+                <div
+                  className={`h-1 w-2 ${index === imgIndex ? "bg-white" : "bg-gray-500"} rounded-[10px] transition-all duration-300`}
+                  key={index}
+                ></div>
+              );
+            })}
+          </div>
+        )}
         <img
-          src={car.images[index]}
+          src={car.images[imgIndex]}
           alt={`${car.make} ${car.model}`}
           loading="lazy"
           className="w-full h-auto max-h-32.5 m-auto rounded-[10px] object-cover"
