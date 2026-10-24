@@ -28,6 +28,18 @@ export default function Card({ car }: { car: CarProps }) {
   const dispatch = useAppDispatch();
   const discountPrice = car.price - (car.price * car.discount) / 100;
   const [hover, setHover] = useState<boolean>(false);
+  const [index, setIndex] = useState<number>(0);
+
+  function nextImg() {
+    if (car.images.length - 1 <= index) return setIndex(0);
+    return setIndex((prev) => prev + 1);
+  }
+
+  function prevImg() {
+    if (index <= 0) return setIndex(car.images.length - 1);
+    return setIndex((prev) => prev - 1);
+  }
+
   return (
     <div className="rounded-[10px] bg-white w-full max-w-77.5 p-3.5 h-70 flex flex-col shrink-0 shadow-md hover:shadow-none transition-all duration-300">
       <div className="flex justify-between items-center">
@@ -36,11 +48,32 @@ export default function Card({ car }: { car: CarProps }) {
         </h3>
         <Heart onClick={() => dispatch(addToFavorites(car))} car={car} />
       </div>
-      <img
-        src={car.thumbnail_img}
-        alt={`${car.make} ${car.model}`}
-        className="w-full max-w-50 h-auto max-h-35 m-auto"
-      />
+      <div className="relative w-full h-32.5">
+        {car.images.length !== 1 && (
+          <div className="absolute flex justify-between items-center top-1/2 -translate-y-1/2 left-0 w-full p-2">
+            <button
+              className="cursor-pointer text-[18px] font-bold bg-blue-500 text-white w-7 h-7 rounded-[50%] flex justify-center items-center hover:scale-110 transition-all duration-300"
+              onClick={() => prevImg()}
+            >
+              {"<"}
+            </button>
+            <button
+              className="cursor-pointer text-[18px] font-bold bg-blue-500 text-white w-7 h-7 rounded-[50%] flex justify-center items-center hover:scale-110 transition-all duration-300"
+              onClick={() => {
+                nextImg();
+              }}
+            >
+              {">"}
+            </button>
+          </div>
+        )}
+        <img
+          src={car.images[index]}
+          alt={`${car.make} ${car.model}`}
+          loading="lazy"
+          className="w-full h-auto max-h-32.5 m-auto rounded-[10px] object-cover"
+        />
+      </div>
       <div className="flex flex-col mt-auto">
         <div className="flex justify-between">
           <div className="flex gap-1">
