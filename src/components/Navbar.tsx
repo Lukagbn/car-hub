@@ -125,7 +125,7 @@ function Navbar() {
             width={28}
             height={28}
             style={{ marginLeft: active ? "auto" : "0px" }}
-            className="rounded-[90px] cursor-pointer"
+            className="rounded-[90px] cursor-pointer hover:scale-110 transition-all duration-300"
             onClick={() => {
               setOverlay(true);
               setModal("login");

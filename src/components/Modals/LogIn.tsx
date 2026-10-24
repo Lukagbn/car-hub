@@ -1,6 +1,7 @@
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
+import { useState } from "react";
 
 interface LogInProps {
   setModal: () => void;
@@ -15,6 +16,7 @@ const schema = yup.object({
 });
 
 function LogIn({ setModal }: LogInProps) {
+  const [error, setError] = useState<string>("");
   const {
     register,
     handleSubmit,
@@ -25,17 +27,20 @@ function LogIn({ setModal }: LogInProps) {
 
   async function handleLogIn(data: { email: string; password: string }) {
     try {
-      const res = await fetch("https://rentacar-uq9f.onrender.com/auth", {
+      const res = await fetch("https://rentacar-uq9f.onrender.com/auh", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
       });
-      if (!res.ok) {
-        console.log("wrong creditails");
+      if (res.status === 401) {
+        setError("Wrong email or password!");
+      } else if (res.status === 500) {
+        setError("Something went wrong please try again later!");
+      } else {
+        const result = await res.json();
+        localStorage.setItem("token", result.token);
+        window.location.reload();
       }
-      const result = await res.json();
-      localStorage.setItem("token", result.token);
-      window.location.reload();
     } catch (error) {
       console.log("error", error);
     }
@@ -73,6 +78,9 @@ function LogIn({ setModal }: LogInProps) {
         >
           Log In
         </button>
+        <span className="h-4.75 block my-2 text-red-500 text-[12px] text-center">
+          {error}
+        </span>
         <p className="text-[14px] text-center my-2">
           Don't have an account?{" "}
           <span className="text-blue-700 cursor-pointer" onClick={setModal}>
