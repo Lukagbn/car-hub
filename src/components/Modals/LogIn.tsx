@@ -2,6 +2,8 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
+import Eye from "../SvgIcons/Eye";
+import EyeClosed from "../SvgIcons/EyeClosed";
 
 interface LogInProps {
   setModal: () => void;
@@ -18,6 +20,8 @@ const schema = yup.object({
 function LogIn({ setModal }: LogInProps) {
   const [error, setError] = useState<string>("");
   const API_URL = import.meta.env.VITE_API_URL;
+  const [visible, setVisible] = useState<boolean>(false);
+
   const {
     register,
     handleSubmit,
@@ -63,12 +67,19 @@ function LogIn({ setModal }: LogInProps) {
           </span>
         </div>
         <div>
-          <input
-            className="h-10 border-b-blue-500 border-b-2 outline-none w-full"
-            type="password"
-            placeholder="Password"
-            {...register("password")}
-          />
+          <div className="relative">
+            <input
+              className="h-10 border-b-blue-500 border-b-2 outline-none w-full"
+              type={visible ? "text" : "password"}
+              placeholder="Password"
+              {...register("password")}
+            />
+            {visible ? (
+              <EyeClosed onClick={() => setVisible(false)} />
+            ) : (
+              <Eye onClick={() => setVisible(true)} />
+            )}
+          </div>
           <span className="h-4.75 block my-2 text-red-500 text-[12px]">
             {errors.password?.message}
           </span>
