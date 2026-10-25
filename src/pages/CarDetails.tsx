@@ -10,6 +10,7 @@ import Card from "../components/Card";
 import CardLoader from "../components/Skeletons/CarDetailsLoader";
 import Modals from "../components/Modals/Modals";
 import type { UserProps } from "../components/Modals/Profile";
+import StarWrapper from "../components/StarWrapper";
 
 export interface CarDetails {
   carDetails: CarProps;
@@ -36,7 +37,7 @@ function Details() {
   const [overlay, setOverlay] = useState<boolean>(false);
   const [modal, setModal] = useState<string>("login");
   const [comment, setComment] = useState<string>("");
-  const [rating, setRating] = useState<string>("");
+  const [rating, setRating] = useState<number>(0);
   const [userData, setUserData] = useState<UserProps | null>(null);
   const loggedIn = Boolean(localStorage.getItem("token"));
   const navigate = useNavigate();
@@ -120,7 +121,7 @@ function Details() {
       await fetchReviews();
 
       setComment("");
-      setRating("");
+      setRating(0);
     } catch (error) {
       console.error("Error posting review:", error);
     }
@@ -250,34 +251,12 @@ function Details() {
               >
                 Write A Comment
               </label>
+              <StarWrapper setRating={setRating} />
               <textarea
                 id="comment"
                 className="w-full h-11 p-3 text-sm text-gray-800 bg-gray-50 border border-gray-200 rounded-lg outline-none placeholder:text-gray-400 focus:border-green-500 focus:ring-2 focus:ring-red-100 transition max-h-50"
                 maxLength={400}
                 onChange={(e) => setComment(e.target.value)}
-              />
-            </div>
-            <div className="flex flex-col gap-2 pt-3 max-w-15 ml-auto md:ml-10">
-              <label
-                className="text-sm font-medium text-gray-700"
-                htmlFor="rate"
-              >
-                Rate Car
-              </label>
-              <input
-                type="text"
-                inputMode="numeric"
-                id="rate"
-                value={rating}
-                maxLength={1}
-                onChange={(e) => {
-                  const value = e.target.value;
-
-                  if (/^[1-5]?$/.test(value)) {
-                    setRating(value);
-                  }
-                }}
-                className="w-full h-11 px-3 text-sm text-gray-800 bg-gray-50 border border-gray-200 rounded-lg outline-none"
               />
             </div>
             <button
@@ -301,8 +280,8 @@ function Details() {
             </button>
           </div>
         ) : null}
-        {reviews.map((review) => (
-          <div key={review.userId}>
+        {reviews.map((review, index) => (
+          <div key={index}>
             <div className="flex justify-between items-center">
               <h5 className="font-bold text-[#1A202C]">{review.nickname}</h5>
               <StarRating rating={review.rating} />

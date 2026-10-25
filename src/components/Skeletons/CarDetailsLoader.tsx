@@ -69,7 +69,7 @@ function CarDetailsLoader() {
       <div className="lg:max-w-310 lg:mx-auto">
         <div className="mt-4 w-28 h-5 bg-[#1A202C] rounded-[10px]"></div>
         <div className="flex overflow-x-scroll gap-3 mt-4 h-75.25">
-          {Array.from({ length: 6 }).map((_, index) => (
+          {Array.from({ length: 11 }).map((_, index) => (
             <CardLoader key={index} />
           ))}
         </div>
