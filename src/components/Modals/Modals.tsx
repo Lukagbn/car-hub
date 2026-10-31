@@ -18,8 +18,6 @@ function Modals({
   onModalChange,
   loggedIn,
 }: ModalProps) {
-  if (!overlay) return null;
-
   useEffect(() => {
     if (overlay) {
       document.body.style.overflow = "hidden";
@@ -30,6 +28,8 @@ function Modals({
       document.body.style.overflow = "";
     };
   }, [overlay]);
+
+  if (!overlay) return null;
 
   return (
     <div
