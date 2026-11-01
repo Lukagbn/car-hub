@@ -14,7 +14,6 @@ export interface CarProps {
   year: string;
   createdAt: string;
   images: string[];
-  thumbnail_img: string;
   price: number;
   discount: number;
   car_type: string;
