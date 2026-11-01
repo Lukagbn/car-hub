@@ -33,7 +33,7 @@ function Details() {
   const [recommended, setRecommended] = useState<CarProps[]>([]);
   const [carData, setCarData] = useState<CarProps>();
   const [reviews, setReviews] = useState<Review[]>([]);
-  const [mainImg, setMainImg] = useState<string>();
+  const [mainImgIndex, setMainImgIndex] = useState<number>(0);
   const [overlay, setOverlay] = useState<boolean>(false);
   const [modal, setModal] = useState<string>("login");
   const [comment, setComment] = useState<string>("");
@@ -146,6 +146,9 @@ function Details() {
   }, [overlay]);
 
   useEffect(() => {
+    setMainImgIndex(0);
+    setCarData(undefined);
+
     fetchCarData();
     fetchRecommended();
     fetchReviews();
@@ -163,7 +166,7 @@ function Details() {
         <div className="max-w-112.5 mx-auto w-full lg:max-w-110 lg:flex lg:flex-col lg:h-full">
           <img
             className="mb-4 rounded-[10px] w-full h-auto max-h-75 lg:max-h-83.5 lg:h-full lg:object-cover object-cover"
-            src={mainImg ?? carData.images[0]}
+            src={carData.images[mainImgIndex]}
             alt="car image"
           />
           {carData.images.length !== 1 && (
@@ -171,10 +174,10 @@ function Details() {
               {carData.images.map((img, index) => {
                 return (
                   <img
-                    className={`${mainImg === img ? "scale-[90%]" : ""} w-[30%] max-h-18 rounded-[10px] lg:max-w-37.5 lg:h-25 lg:max-h-none object-cover cursor-pointer`}
+                    className={`${mainImgIndex === index ? "scale-[90%]" : ""} w-[30%] max-h-18 rounded-[10px] lg:max-w-37.5 lg:h-25 lg:max-h-none object-cover cursor-pointer`}
                     key={index}
                     src={img}
-                    onClick={() => setMainImg(img)}
+                    onClick={() => setMainImgIndex(index)}
                   />
                 );
               })}

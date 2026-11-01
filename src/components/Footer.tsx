@@ -4,13 +4,17 @@ function Footer() {
       <div className="flex flex-col gap-10 lg:max-w-310 lg:mx-auto">
         <div className="flex justify-between">
           <ul>
-            <h4 className="text-[#1A202C] text-[20px] font-bold">About</h4>
+            <li>
+              <h4 className="text-[#1A202C] text-[20px] font-bold">About</h4>
+            </li>
             <li className="text-[#90A3BF]">How it works</li>
             <li className="text-[#90A3BF]">Featured</li>
             <li className="text-[#90A3BF]">Partnership</li>
           </ul>
           <ul>
-            <h4 className="text-[#1A202C] text-[20px] font-bold">Social</h4>
+            <li>
+              <h4 className="text-[#1A202C] text-[20px] font-bold">Social</h4>
+            </li>
             <li className="text-[#90A3BF]">instagram</li>
             <li className="text-[#90A3BF]">facebook</li>
             <li className="text-[#90A3BF]">discord</li>
