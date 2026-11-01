@@ -40,15 +40,16 @@ function Home() {
 
   useEffect(() => {
     fetchCars();
-  }, [carData]);
+  }, []);
 
   return (
     <>
       <Banner />
       <CardList car={carData} title="Recommended Cars" loading={loading} />
+
       <Link
-        to={"/categories"}
-        className="rounded-[10px] bg-blue-500 text-white h-9 w-25 text-[12px] flex mx-auto my-4 items-center justify-center hover:bg-blue-700 transition-all duration-200 cursor-pointer"
+        to="/categories"
+        className="rounded-[10px] bg-blue-700 hover:bg-blue-500 text-white h-9 w-25 text-[12px] cursor-pointer transition-colors duration-200 flex items-center justify-center mx-auto"
       >
         See More
       </Link>

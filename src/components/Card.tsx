@@ -27,7 +27,6 @@ export interface CarProps {
 export default function Card({ car }: { car: CarProps }) {
   const dispatch = useAppDispatch();
   const discountPrice = car.price - (car.price * car.discount) / 100;
-  const [hover, setHover] = useState<boolean>(false);
   const [imgIndex, setImgIndex] = useState<number>(0);
 
   function nextImg() {
@@ -111,14 +110,11 @@ export default function Card({ car }: { car: CarProps }) {
               ${discountPrice && car.price.toFixed(2)}
             </p>
           </div>
-          <Link to={`/cars/${car._id}`}>
-            <button
-              className={`rounded-[10px] ${hover ? "bg-blue-500" : "bg-blue-700"}  text-white h-9 w-25 text-[12px] cursor-pointer transition-all duration-200`}
-              onMouseEnter={() => setHover(true)}
-              onMouseLeave={() => setHover(false)}
-            >
-              Rent Now
-            </button>
+          <Link
+            to={`/cars/${car._id}`}
+            className="rounded-[10px] bg-blue-700 hover:bg-blue-500 text-white h-9 w-25 text-[12px] cursor-pointer transition-colors duration-200 flex items-center justify-center"
+          >
+            Rent Now
           </Link>
         </div>
       </div>
