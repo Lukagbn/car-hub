@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import TopReviewLoader from "./Skeletons/TopReviewLoader";
 import StarRating from "./StarRating";
 import { Link } from "react-router";
