@@ -39,7 +39,7 @@ export default function Card({ car }: { car: CarProps }) {
   }
 
   return (
-    <div className="rounded-[10px] bg-white w-full max-w-77.5 p-3.5 h-70 flex flex-col shrink-0 shadow-md hover:shadow-none transition-all duration-300">
+    <div className="rounded-[10px] bg-white w-full max-w-77.5 p-3.5 h-70 flex flex-col shrink-0 shadow-md hover:shadow-none transition-all duration-300 cursor-pointer select-none">
       <div className="flex justify-between items-center">
         <h3 className="mt-2 font-medium text-[#1A202C]">
           {car.make} {car.model}

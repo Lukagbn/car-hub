@@ -59,11 +59,40 @@ function CarDetailsLoader() {
       <div className="bg-white rounded-[10px] p-4 flex flex-col gap-2 mt-4 lg:max-w-310 lg:m-auto">
         <div className="bg-[#90A3BF] h-5.5 w-19 rounded-[10px]"></div>
         <div>
-          <div className="flex justify-between items-center">
-            <div className="bg-[#1A202C] h-5.5 w-15 rounded-[10px]"></div>
-            <StarRating rating={5} />
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+            <div className="w-full border border-[#90A3BF] rounded-[10px] h-50 flex flex-col p-3 justify-between">
+              <div className="bg-[#1A202C] h-5 w-1/6 rounded-[10px] mt-1"></div>
+              <StarRating rating={5} />
+              <div className="bg-[#90A3BF] h-5 w-full rounded-[10px] mt-1"></div>
+              <div className="bg-[#90A3BF] h-5 w-full rounded-[10px] mt-1"></div>
+              <div className="bg-[#90A3BF] h-5 w-1/2 rounded-[10px] mt-1"></div>
+              <div className="bg-[#90A3BF] h-5 w-1/4 rounded-[10px] mt-1"></div>
+            </div>
+            <div className="w-full border border-[#90A3BF] rounded-[10px] h-50 flex flex-col p-3 justify-between">
+              <div className="bg-[#1A202C] h-5 w-1/6 rounded-[10px] mt-1"></div>
+              <StarRating rating={5} />
+              <div className="bg-[#90A3BF] h-5 w-full rounded-[10px] mt-1"></div>
+              <div className="bg-[#90A3BF] h-5 w-full rounded-[10px] mt-1"></div>
+              <div className="bg-[#90A3BF] h-5 w-1/2 rounded-[10px] mt-1"></div>
+              <div className="bg-[#90A3BF] h-5 w-1/4 rounded-[10px] mt-1"></div>
+            </div>
+            <div className="w-full border border-[#90A3BF] rounded-[10px] h-50 flex flex-col p-3 justify-between">
+              <div className="bg-[#1A202C] h-5 w-1/6 rounded-[10px] mt-1"></div>
+              <StarRating rating={5} />
+              <div className="bg-[#90A3BF] h-5 w-full rounded-[10px] mt-1"></div>
+              <div className="bg-[#90A3BF] h-5 w-full rounded-[10px] mt-1"></div>
+              <div className="bg-[#90A3BF] h-5 w-1/2 rounded-[10px] mt-1"></div>
+              <div className="bg-[#90A3BF] h-5 w-1/4 rounded-[10px] mt-1"></div>
+            </div>
+            <div className="w-full border border-[#90A3BF] rounded-[10px] h-50 flex flex-col p-3 justify-between">
+              <div className="bg-[#1A202C] h-5 w-1/6 rounded-[10px] mt-1"></div>
+              <StarRating rating={5} />
+              <div className="bg-[#90A3BF] h-5 w-full rounded-[10px] mt-1"></div>
+              <div className="bg-[#90A3BF] h-5 w-full rounded-[10px] mt-1"></div>
+              <div className="bg-[#90A3BF] h-5 w-1/2 rounded-[10px] mt-1"></div>
+              <div className="bg-[#90A3BF] h-5 w-1/4 rounded-[10px] mt-1"></div>
+            </div>
           </div>
-          <div className="bg-[#90A3BF] h-5.5 w-1/2 rounded-[10px] mt-1"></div>
         </div>
       </div>
       <div className="lg:max-w-310 lg:mx-auto">

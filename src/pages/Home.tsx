@@ -3,6 +3,7 @@ import Banner from "../components/Banner";
 import type { CarProps } from "../components/Card";
 import CardList from "../components/CardList";
 import { Link } from "react-router";
+import TopReviews from "../components/TopReviews";
 
 export interface ApiResponse {
   carData: CarProps[];
@@ -49,10 +50,11 @@ function Home() {
 
       <Link
         to="/categories"
-        className="rounded-[10px] bg-blue-700 hover:bg-blue-500 text-white h-9 w-25 text-[12px] cursor-pointer transition-colors duration-200 flex items-center justify-center mx-auto"
+        className="rounded-[10px] bg-blue-700 hover:bg-blue-500 text-white h-9 w-25 text-[12px] cursor-pointer transition-colors duration-200 flex items-center justify-center mx-auto mt-4"
       >
         View all cars
       </Link>
+      <TopReviews />
     </>
   );
 }

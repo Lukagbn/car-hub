@@ -24,6 +24,7 @@ interface Review {
   userId: string;
   carId: string;
   nickname: string;
+  date: string;
 }
 interface Reviews {
   reviews: Review[];
@@ -283,15 +284,23 @@ function Details() {
             </button>
           </div>
         ) : null}
-        {reviews.map((review, index) => (
-          <div key={index}>
-            <div className="flex justify-between items-center">
-              <h5 className="font-bold text-[#1A202C]">{review.nickname}</h5>
-              <StarRating rating={review.rating} />
-            </div>
-            <p className="text-[#90A3BF]">{review.comment}</p>
-          </div>
-        ))}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+          {reviews.map((review, index) => {
+            const date = review.date;
+            const formattedDate = date.split("T")[0].split("-").join("/");
+            return (
+              <div
+                key={index}
+                className="flex flex-col gap-3 border border-[#90A3BF] rounded-[10px] p-3 w-full"
+              >
+                <StarRating rating={review.rating} />
+                <h5 className="font-bold text-[#1A202C]">{review.nickname}</h5>
+                <p className="text-[#90A3BF]">{review.comment}</p>
+                <p className="text-[#90A3BF]">Posted On: {formattedDate}</p>
+              </div>
+            );
+          })}
+        </div>
       </div>
       <h4 className="mt-4 text-[#1A202C] font-medium lg:max-w-310 lg:mx-auto">
         Recommended
