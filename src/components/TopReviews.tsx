@@ -23,7 +23,6 @@ function TopReviews() {
       const res = await fetch("https://rentacar-uq9f.onrender.com/review/top");
       const response: AllReviewApiResponse = await res.json();
       setReviews(response.allReviews);
-      console.log(response);
     } catch (error) {
       console.log("error:", error);
       setError("Failed to load reviews");

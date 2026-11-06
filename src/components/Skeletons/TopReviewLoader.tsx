@@ -2,7 +2,7 @@ import StarRating from "../StarRating";
 
 function TopReviewLoader() {
   return (
-    <section>
+    <section className="lg:mx-auto lg:max-w-310 mt-4">
       <div className="w-1/6 h-4 bg-[#1A202C] rounded mt-4"></div>
       <div className="flex gap-2 mt-4 overflow-x-auto animate-pulse">
         {Array.from({ length: 6 }).map((_, index) => {

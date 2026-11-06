@@ -11,10 +11,7 @@ interface LogInProps {
 
 const schema = yup.object({
   email: yup.string().required("Email is required!").email("Incorrect email!"),
-  password: yup
-    .string()
-    .required("Password is required")
-    .min(7, "Password must be at least 7 characters"),
+  password: yup.string().required("Password is required"),
 });
 
 function LogIn({ setModal }: LogInProps) {
