@@ -1,0 +1,21 @@
+# CarHub
+
+> CarHub is a car-rental platform for browsing vehicles, comparing rental prices, and finding car details.
+
+## Main pages
+
+- [Home](https://carhub-rent.vercel.app/): Featured and recommended cars.
+- [Categories](https://carhub-rent.vercel.app/categories): Browse and filter cars by make, type, fuel, transmission, and price.
+- [Contact](https://carhub-rent.vercel.app/contact): Contact information and inquiry form.
+- [Favorites](https://carhub-rent.vercel.app/favorites): View saved cars in the current browser.
+
+## Car details
+
+- Car detail pages use the URL pattern `https://carhub-rent.vercel.app/cars/{carId}`.
+- Each detail page includes vehicle specifications, images, rental pricing, and reviews.
+- Some actions, including checkout and posting reviews, require an account.
+
+## Notes
+
+- Vehicle listings and details are provided by the CarHub application API and may change.
+- Do not assume prices, availability, ratings, or review content are fixed.

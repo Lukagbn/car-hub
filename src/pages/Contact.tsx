@@ -28,10 +28,10 @@ function Contact() {
             <div>
               <h3 className="font-semibold text-[#1A202C]">Email Address</h3>
               <a
-                href="mailto:info@carrent.ge"
+                href="mailto:info@carhub.ge"
                 className="text-sm text-gray-500 hover:text-blue-600"
               >
-                info@carrent.ge
+                info@carhub.ge
               </a>
             </div>
           </div>

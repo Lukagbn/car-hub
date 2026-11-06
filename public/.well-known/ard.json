@@ -1,0 +1,24 @@
+{
+  "entries": [
+    {
+      "identifier": "urn:air:carhub-rent.vercel.app:documents:llms-txt",
+      "displayName": "CarHub agent information",
+      "type": "text/markdown",
+      "url": "https://carhub-rent.vercel.app/llms.txt",
+      "description": "Machine-readable overview of CarHub pages and car-rental features.",
+      "representativeQueries": [
+        "What is CarHub?",
+        "Where can I browse and filter rental cars?",
+        "How do I find a car's details and rental price?"
+      ],
+      "capabilities": [
+        "discover-car-rental-pages"
+      ],
+      "tags": [
+        "car-rental",
+        "vehicle-search",
+        "carhub"
+      ]
+    }
+  ]
+}

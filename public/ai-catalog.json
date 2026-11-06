@@ -1,0 +1,29 @@
+{
+  "specVersion": "1.0",
+  "host": {
+    "displayName": "CarHub",
+    "documentationUrl": "https://carhub-rent.vercel.app/llms.txt"
+  },
+  "entries": [
+    {
+      "identifier": "urn:air:carhub-rent.vercel.app:documents:site-guide",
+      "displayName": "CarHub website guide",
+      "type": "text/markdown",
+      "url": "https://carhub-rent.vercel.app/llms.txt",
+      "description": "Overview of CarHub pages and car-rental features.",
+      "capabilities": [
+        "discover-car-rental-pages"
+      ],
+      "representativeQueries": [
+        "What is CarHub and what services does it provide?",
+        "Where can I browse and filter rental cars?",
+        "How can I view a car's details and rental price?"
+      ],
+      "tags": [
+        "car-rental",
+        "vehicle-search",
+        "carhub"
+      ]
+    }
+  ]
+}
